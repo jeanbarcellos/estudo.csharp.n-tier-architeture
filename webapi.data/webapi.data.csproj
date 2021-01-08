@@ -13,4 +13,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\webapi.core\webapi.core.csproj" />
+  </ItemGroup>
+
 </Project>
