@@ -3,42 +3,47 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using webapi.core.Models;
-using webapi.data.Repositories;
+using webapi.business.Services;
 
-namespace webapi.Controllers
+namespace webapi.api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     public class BookController : ControllerBase
     {
-        private IRepository<Book> _bookRepository;
+        private IBookService _bookService;
 
-        public BookController(IRepository<Book> bookRepository)
+        public BookController(IBookService bookService)
         {
-            _bookRepository = bookRepository;
+            _bookService = bookService;
         }
 
         [HttpGet]
         [Route("")]
-        public IEnumerable<Book> GetAllBooks() => _bookRepository.GetAll();
+        public IEnumerable<Book> GetAllBooks() =>
+            _bookService.GetAllBooks();
 
         [HttpPost]
         [Route("")]
         [AllowAnonymous]
-        public void InsertBook([FromBody] Book book) => _bookRepository.Insert(book);
+        public void InsertBook([FromBody] Book book) =>
+            _bookService.InsertBook(book);
 
         [HttpGet]
         [Route("{id}")]
-        public Book GetBookById(Guid id) => _bookRepository.GetById(id);
+        public Book GetBookById(Guid id) =>
+            _bookService.GetBookById(id);
 
         [HttpPut]
         [Route("{id}")]
         [AllowAnonymous]
-        public void UpdateBook([FromBody] Book book) => _bookRepository.Update(book);
+        public void UpdateBook([FromBody] Book book) =>
+            _bookService.UpdateBook(book);
 
         [HttpDelete]
         [Route("{id}")]
         [AllowAnonymous]
-        public void DeleteBook(Guid id) => _bookRepository.Delete(id);
+        public void DeleteBook(Guid id) =>
+            _bookService.DeleteBook(id);
     }
 }
