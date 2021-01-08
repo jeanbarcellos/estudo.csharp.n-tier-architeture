@@ -13,13 +13,19 @@ namespace webapi.root
 
         public static void injectDependencies(IServiceCollection services)
         {
+            // Database
             services.AddDbContext<DatabaseContext>(opts => opts.UseInMemoryDatabase("database"));
             services.AddScoped<DatabaseContext>();
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            // Repositories
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IAuthorRepository, AuthorRepository>();
+
+            // Services
             services.AddScoped<IAuthorService, AuthorService>();
             services.AddScoped<IBookService, BookService>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
     }
 }
