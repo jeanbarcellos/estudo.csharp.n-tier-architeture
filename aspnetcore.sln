@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webapi.api", "webapi.api\we
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webapi.core", "webapi.core\webapi.core.csproj", "{850EC4CA-8F9A-4838-BA1F-1FBF9D428D4A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webapi.root", "webapi.root\webapi.root.csproj", "{3ADDE55D-2727-4499-8D81-46A4CEF0EE7F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,5 +74,17 @@ Global
 		{850EC4CA-8F9A-4838-BA1F-1FBF9D428D4A}.Release|x64.Build.0 = Release|Any CPU
 		{850EC4CA-8F9A-4838-BA1F-1FBF9D428D4A}.Release|x86.ActiveCfg = Release|Any CPU
 		{850EC4CA-8F9A-4838-BA1F-1FBF9D428D4A}.Release|x86.Build.0 = Release|Any CPU
+		{3ADDE55D-2727-4499-8D81-46A4CEF0EE7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3ADDE55D-2727-4499-8D81-46A4CEF0EE7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3ADDE55D-2727-4499-8D81-46A4CEF0EE7F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3ADDE55D-2727-4499-8D81-46A4CEF0EE7F}.Debug|x64.Build.0 = Debug|Any CPU
+		{3ADDE55D-2727-4499-8D81-46A4CEF0EE7F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3ADDE55D-2727-4499-8D81-46A4CEF0EE7F}.Debug|x86.Build.0 = Debug|Any CPU
+		{3ADDE55D-2727-4499-8D81-46A4CEF0EE7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3ADDE55D-2727-4499-8D81-46A4CEF0EE7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3ADDE55D-2727-4499-8D81-46A4CEF0EE7F}.Release|x64.ActiveCfg = Release|Any CPU
+		{3ADDE55D-2727-4499-8D81-46A4CEF0EE7F}.Release|x64.Build.0 = Release|Any CPU
+		{3ADDE55D-2727-4499-8D81-46A4CEF0EE7F}.Release|x86.ActiveCfg = Release|Any CPU
+		{3ADDE55D-2727-4499-8D81-46A4CEF0EE7F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
