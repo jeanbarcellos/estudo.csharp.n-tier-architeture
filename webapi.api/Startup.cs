@@ -1,12 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using webapi.business.Services;
-using webapi.data.Repositories;
+using webapi.root;
+
 namespace webapi.api
 {
     public class Startup
@@ -20,13 +19,7 @@ namespace webapi.api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DatabaseContext>(opts => opts.UseInMemoryDatabase("database"));
-            services.AddScoped<DatabaseContext>();
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-            services.AddScoped<IAuthorRepository, AuthorRepository>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IAuthorService, AuthorService>();
-            services.AddScoped<IBookService, BookService>();
+            CompositionRoot.injectDependencies(services);
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
