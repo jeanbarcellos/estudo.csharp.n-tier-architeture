@@ -87,15 +87,9 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-All projects for layered n-tier architecture is added as of now, and initial data flow & references are also configured. Changes related to repositories, services and controllers are similar to previous implementations and can be referred in layered-architecture branch in source code.
-
-```bash
-git clone https://github.com/udarabibile/aspnetcore-webapi.git
-cd aspnetcore-webapi
-git checkout layered-architecture
-dotnet restore
-dotnet run
-```
+<br>
+<br>
+---
 
 Data Flow: Presentation → Business Logic → Data Access
 Lets consider data flow through controllers, services and repositories for `GetAuthorByName` from REST endpoint to database:
