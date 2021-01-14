@@ -43,7 +43,7 @@ namespace webapi.data.Repositories
         }
         public void Delete(Guid id)
         {
-            if (id == null) throw new ArgumentNullException("entity");
+            if (id == Guid.Empty) throw new ArgumentNullException("entity");
 
             T entity = entities.SingleOrDefault(s => s.Id == id);
             entities.Remove(entity);
