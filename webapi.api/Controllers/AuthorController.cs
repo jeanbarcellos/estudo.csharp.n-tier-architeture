@@ -36,13 +36,13 @@ namespace webapi.api.Controllers
             _authorService.GetAuthorByName(name);
 
         [HttpPut]
-        [Route("{id}")]
+        [Route("{id:guid}")]
         [AllowAnonymous]
         public void UpdateAuthor([FromBody] Author author) =>
             _authorService.UpdateAuthor(author);
 
         [HttpDelete]
-        [Route("{id}")]
+        [Route("{id:guid}")]
         [AllowAnonymous]
         public void DeleteAuthor(Guid id) =>
             _authorService.DeleteAuthor(id);
