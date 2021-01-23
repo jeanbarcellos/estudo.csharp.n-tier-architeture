@@ -41,7 +41,7 @@ dotnet sln add webapi.business/webapi.business.csproj
 dotnet add reference ../webapi.data/webapi.data.csproj
 ```
 
-## Create Presentation Layer (UI)
+## Create Presentation Layer (UIL)
 
 ```bash
 // Create Web API project and add this project to solution
@@ -52,7 +52,25 @@ dotnet sln add webapi.api/webapi.api.csproj
 dotnet add reference ../webapi.business/webapi.business.csproj
 ```
 
+<br>
+<hr>
+
+E quanto a entidades comuns, como modelos?
+
+Normalmente, de acordo com o código anterior, os modelos eram mais acoplados aos _repositórios_. Assim, os _modelos_ podem ser adicionados à camada de acesso a dados (DAL), mas os _modelos_ foram usados ​​em _serviços_ e _controladores_ para validações ou como tipos de retorno. Isso não seria um problema para a camada de lógica de negócios (BLL), pois já estaria se referindo à camada de acesso a dados (DAL).
+
+No entanto, para usar modelos em controladores, **a camada de apresentação (UIL) deve referenciar a camada de acesso aos dados (DAL) diretamente e isso seria impróprio para o projeto**. A referência de `webapi.api → webapi.data` ignoraria `webapi.business` e também herdaria todos os _repositórios_, exceto os _modelos_, portanto, não pode ser considerada a melhor prática. (Observe que pode ser validado onde os modelos são usados ​​apenas e os repositórios não são alterados, mas isso é falha de design.)
+
+Assim, é adicionada a camada de infraestrutura chamada `webapi.core`, com _entidades_ comuns. Aqui, ele pode incluir normalmente **modelos, perfilagem e todas as outras camadas que fazem referência e usam essas entidades comuns**.
+
+Desse modo, **a camada de suporte pode ser criada para a infraestrutura central**, como modelos de domínio, registrador onde todas as outras 3 camadas estariam referenciando.
+
+<br>
+<br>
+
 ## Create Infrastructure Layer (Core)
+
+As entidades comuns para o aplicativo são armazenadas em _Models_ e a biblioteca de classes é criada para essas alterações principais. Todas as outras camadas farão referência à camada central e importarão modelos para uso.
 
 ```bash
 // Create class library and add this project to solution
@@ -63,7 +81,26 @@ dotnet sln add webapi.core/webapi.core.csproj
 dotnet add reference ../webapi.core/webapi.core.csproj
 ```
 
-## Create Dependency Injection Layer (Root)
+<br>
+<hr>
+
+## Configurar a injeção de dependência e dependência circular
+
+Até este momento, todas as dependências foram injetadas `StartUp.cs`, onde a implementação relevante foi mapeada para as abstrações necessárias. Por exemplo, o concreto `AuthorServicefoi` mapeado para `IAuthorService` ser injetado. No entanto, resolver a dependência de `IRepository` em `webapi.api` resultaria na adição de uma referência a `webapi.data → webapi.api`, violando assim as restrições de fluxo de dados. Aqui, **a camada de apresentação (UIL) dependerá diretamente da camada de acesso aos dados(DAL)**.
+
+Conseqüentemente, a injeção de dependência deveria ser feita em um local separado e tal camada poderia ser `webapi.core`. Mas, a partir de agora, existem referências a `webapi.core` camadas de outras camadas e, com esse requisito, `webapi.core` deve-se fazer referência a outras camadas para resolver dependências. Simplesmente dependências seriam `webapi.api ↔ webapi.core` e, portanto, **dependência circular** . _Nenhuma das camadas pode ser compilada_, pois ambas dependem uma da outra. (Mesmo que o link seja para finalidades diferentes, há referência entre as camadas). Assim, `webapi.core` acaba por não ser adequado para injeção de dependência.
+
+**Composition Root**
+
+Local único onde as dependências são registradas..
+
+**Nota**: pode haver design onde a raiz da composição pode ser evitada. Camadas como DAL → Repositórios, BL → Serviços, UI → Controladores, App → WebAPI + DI
+
+<br>
+
+### Create Dependency Injection Layer (Root)
+
+**A resolução das dependências é feita no local central** e passada para o contêiner Inverso de Controle integrado para a injeção de dependência.
 
 ```bash
 // Create class library and add this project to solution
@@ -79,14 +116,14 @@ dotnet add reference ../webapi.business/webapi.business.csproj
 dotnet add reference ../webapi.data/webapi.data.csproj
 ```
 
-In-built ASP.NET Core dependency injection is done StartUp.cs of webapi.api, thereby it’ll refer webapi.root to initiate resolving dependency.
+Injeção de dependência embutido no ASP.NET Core é feito em `StartUp.cs` de `webapi.api`, assim ele vai se referir `webapi.root` para iniciar a resolução de dependência.
 
 ```bash
 // Navigate to webapi.api and refer webapi.root project
 dotnet add reference ../webapi.root/webapi.root.csproj
 ```
 
-And use CompositionRoot class to initiate resolving dependecies.
+E use a classe `CompositionRoot` para iniciar a resolução de dependências
 
 ```bash
 public void ConfigureServices(IServiceCollection services)
@@ -98,10 +135,11 @@ public void ConfigureServices(IServiceCollection services)
 
 <br>
 <br>
----
+<hr>
 
-Data Flow: Presentation → Business Logic → Data Access
-Lets consider data flow through controllers, services and repositories for `GetAuthorByName` from REST endpoint to database:
+**Data Flow: Presentation → Business Logic → Data Access**
+
+Vamos considerar o fluxo de dados por meio de **controllers**, **services** e **repositories** `GetAuthorByName` do endpoint REST ao banco de dados:
 
 - Controllers (Presentation Layer) → Services (Business Logic Layer)
 
@@ -132,7 +170,7 @@ public Task<Author> GetByName(string name) =>
 <br>
 ---
 
-## Apart from above given commands, some are useful in case of minor changes
+## Além dos comandos fornecidos acima, alguns são úteis no caso de pequenas alterações
 
 Remove reference from one project to another
 
