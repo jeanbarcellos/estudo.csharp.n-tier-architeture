@@ -1,12 +1,21 @@
-Repositório somente para estudos!
+_Repositório somente para estudos!_
 
 # N-Tier Architecture in ASP.NET Core
 
 Part 4: Build layered architecture for separation of concern, scalability and maintenance
 
-Link:
+Instrutor:
+
+- [Udara Biblie](https://github.com/udarabibile)
+
+Referências:
 
 - https://chathuranga94.medium.com/n-tier-architecture-in-asp-net-core-d1f1b14f2010
+- https://github.com/udarabibile/aspnetcore-webapi/tree/n-tier-architecture
+
+<br>
+<br>
+<hr>
 
 ## Create Data Access Layer (DAL)
 
