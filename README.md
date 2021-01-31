@@ -17,39 +17,77 @@ Referências:
 <br>
 <hr>
 
+**Criação do diretório**
+
+```
+mkdir webapi
+
+cd webapi
+```
+
+**Abrir o VS Code**
+
+```bash
+code .
+```
+
+**Abrir e criar o diretório `src/` (onde ficarão os projetos)**
+
+```bash
+mkdir src
+```
+
+**Criar solução para arquitetura N-Tier**
+
+```
+dotnet new sln --name webapi
+```
+
 ## Create Data Access Layer (DAL)
 
 ```bash
 // Create class library and add this project to solution
-dotnet new classlib --name webapi.data
-dotnet sln add webapi.data/webapi.data.csproj
+dotnet new classlib --name webapi.data --output src/webapi.data
+dotnet sln add src/webapi.data/webapi.data.csproj
+
+cd src/webapi.data
 
 // Navigate to DAL → cd webapi.data and Install Nuget packages
 dotnet add package Microsoft.EntityFrameworkCore
 dotnet add package Microsoft.EntityFrameworkCore.Design
 dotnet add package Microsoft.EntityFrameworkCore.InMemory
+
+cd ../..
 ```
 
 ## Create Business Logic Layer (BLL)
 
 ```bash
 // Create class library and add this project to solution
-dotnet new classlib --name webapi.business
-dotnet sln add webapi.business/webapi.business.csproj
+dotnet new classlib --name webapi.business --output src/webapi.business
+dotnet sln add src/webapi.business/webapi.business.csproj
+
+cd src/webapi.business
 
 // Navigate to BLL → cd webapi.business and reference to DAL project
 dotnet add reference ../webapi.data/webapi.data.csproj
+
+cd ../..
 ```
 
 ## Create Presentation Layer (UIL)
 
 ```bash
 // Create Web API project and add this project to solution
-dotnet new webapi --name webapi.api
-dotnet sln add webapi.api/webapi.api.csproj
+dotnet new webapi --name webapi.api --output src/webapi.api
+dotnet sln add src/webapi.api/webapi.api.csproj
+
+cd src/webapi.api
 
 // Navigate to UI → cd webapi.api and reference to BL project
 dotnet add reference ../webapi.business/webapi.business.csproj
+
+cd ../..
 ```
 
 <br>
@@ -74,8 +112,8 @@ As entidades comuns para o aplicativo são armazenadas em _Models_ e a bibliotec
 
 ```bash
 // Create class library and add this project to solution
-dotnet new classlib --name webapi.core
-dotnet sln add webapi.core/webapi.core.csproj
+dotnet new classlib --name webapi.core --output src/webapi.core
+dotnet sln add src/webapi.core/webapi.core.csproj
 
 // Navigate to each of DAL, BLL, UI projects and refer Core project
 dotnet add reference ../webapi.core/webapi.core.csproj
@@ -104,8 +142,8 @@ Local único onde as dependências são registradas..
 
 ```bash
 // Create class library and add this project to solution
-dotnet new classlib --name webapi.root
-dotnet sln add webapi.root/webapi.root.csproj
+dotnet new classlib --name webapi.root --output src/webapi.root
+dotnet sln add src/webapi.root/webapi.root.csproj
 
 // Navigate to composition root and Install Nuget packages
 dotnet add package Microsoft.Extensions.DependencyInjection.Abstractions
@@ -164,6 +202,26 @@ public Task<Author> GetAuthorByName(string firstName) =>
 // AuthorRepository
 public Task<Author> GetByName(string name) =>
    context.Set<Author>().FirstOrDefaultAsync(a => a.Name == name);
+```
+
+<br>
+<br>
+---
+
+## Executar
+
+Acessar a raiz do projeto
+
+**Rodar com ouvinte:**
+
+```
+dotnet watch --project src/webapi.api run
+```
+
+**Apenas rodar**
+
+```
+dotnet run --project src/webapi.api
 ```
 
 <br>

@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webapi.data", "webapi.data\webapi.data.csproj", "{6958D0F0-2959-499F-BA75-D99ED1DF3485}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webapi.data", "src\webapi.data\webapi.data.csproj", "{6958D0F0-2959-499F-BA75-D99ED1DF3485}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webapi.business", "webapi.business\webapi.business.csproj", "{C53442DA-B046-4628-871F-7DEBD4E3B5D4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webapi.business", "src\webapi.business\webapi.business.csproj", "{C53442DA-B046-4628-871F-7DEBD4E3B5D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webapi.api", "webapi.api\webapi.api.csproj", "{C340898A-53B9-466C-B013-8BE063362F56}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webapi.api", "src\webapi.api\webapi.api.csproj", "{C340898A-53B9-466C-B013-8BE063362F56}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webapi.core", "webapi.core\webapi.core.csproj", "{850EC4CA-8F9A-4838-BA1F-1FBF9D428D4A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webapi.core", "src\webapi.core\webapi.core.csproj", "{850EC4CA-8F9A-4838-BA1F-1FBF9D428D4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webapi.root", "webapi.root\webapi.root.csproj", "{3ADDE55D-2727-4499-8D81-46A4CEF0EE7F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webapi.root", "src\webapi.root\webapi.root.csproj", "{3ADDE55D-2727-4499-8D81-46A4CEF0EE7F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
